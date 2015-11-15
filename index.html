@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Prorthymix</title>
+		<!-- Stylesheet -->
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.qtip.css" />
+        <!-- JQuery script includes -->
+        <script type="text/javascript" src="js/jquery-1.6.4-pack.js"></script>
+		<script type="text/javascript" src="js/jquery.countdown.js"></script>
+        <script type="text/javascript" src="js/jquery.qtip.min.js"></script>
+        <!-- Page title transition script -->
+        <script type="text/javascript">
+			var titlesTag = "div.titles";
+			var titlesTagTip = titlesTag + "[title]";
+			var targetTitleTag = "div.pageTitle";
+			var targetSubTitleTag = "div.pageSubTitle";
+			var etlTag = "h3[title]";
+			var titles = new Array(
+				"Still looking for where we left our keys..",
+				"Haven't found the right rythyms to mix yet..",
+				"You're early for the party!"
+			);
+			var subTitles = new Array(
+				"Stick around and we'll be right back!",
+				"Some great music is heading your way!",
+				"Hang around and watch the fun!"
+			);
+			var lastTitleIndex = -1;
+			
+			function getRandomTitleText() {
+				var foundNewTitleIndex = false;
+				do {
+					var currentTitleIndex = Math.round((titles.length-1) * Math.random());
+								
+					if (currentTitleIndex != lastTitleIndex) {
+						lastTitleIndex = currentTitleIndex;
+						foundNewTitleIndex = true;
+					}
+				} while (!foundNewTitleIndex);
+		
+				return lastTitleIndex;
+			}
+		
+			function setRandomTitle() {
+				$(titlesTag).animate("opacity:0.5;", 400, function() {
+					//$(titlesTag).animate('opacity: 1', 500, function() {
+						var index = getRandomTitleText();
+						$(targetTitleTag).text(titles[index]);
+						$(targetSubTitleTag).text(subTitles[index]);
+				   // });
+				});
+			}
+		
+			$(document).ready(function(){
+				setRandomTitle();
+				$(titlesTag).click(function() {setRandomTitle()});
+				$(titlesTagTip).qtip({
+					style: { classes: 'ui-tooltip-title' },
+					position: { my: 'bottom left', at: 'top right' }
+				});
+				$(etlTag).qtip({
+					style: { classes: 'ui-tooltip-etl' },
+					position: { my: 'bottom left', at: 'top center' }
+				});
+			});
+		</script>
+        <!-- Countdown script -->
+        <script type="text/javascript">
+			function getTimeTillMoment() {
+				var now = new Date();
+				// Target time is end of each quarter!
+				var target = new Date(now.getFullYear(), ((Math.floor((now.getMonth() / 3))+1) * 3), 0, 23, 59, 59, 999);
+				
+				var totalSecs = (target-now)/1000;
+				var days = padZero(totalSecs/86400, 2);
+				totalSecs = totalSecs%86400;
+				var hours = padZero(totalSecs/3600);
+				totalSecs = totalSecs%3600;
+				var mins = padZero(totalSecs/60);
+				totalSecs = padZero(totalSecs%60);
+				var strTimeTillMoment = days+":"+hours+":"+mins+":"+totalSecs;
+								
+				return strTimeTillMoment;
+			}
+			
+			function padZero(val, count) {
+				var paddedNum = Math.round(val) + '';
+				if (typeof(count) == "undefined") {
+					count = 1;
+				}
+				
+				while(paddedNum.length <= count) {
+					paddedNum = "0" + paddedNum;
+				}
+				
+				return paddedNum;
+			}
+			
+			$(function () {
+				var timeTillMoment = getTimeTillMoment();
+				var countdownVar = $('#countdown').countdown({
+				  image: 'images/digits.png',
+				  startTime: timeTillMoment,
+				  timerEnd: function() {
+					  console.debug(countdownVar);
+					  var timeTillMoment = getTimeTillMoment();
+					  $('#countdown').countdown({
+						  image: 'images/digits.png',
+						  startTime: timeTillMoment
+					  });
+				  }
+				});
+			});
+		</script>
+        <!-- Scroll pane script -->
+        <script type="application/javascript">
+			$(document).ready(function(){
+				var currentSection = 1;
+				$('#prevSection').click(function(){
+					if (currentSection != 1) {
+						alert('section'+currentSection);
+						currentSection = currentSection - 1;
+						$('#section').animate({
+							scrollLeft: $('section'+currentSection).offset().left
+						}, 1000);
+					}
+				});
+				$('#nextSection').click(function(){
+					if (currentSection != 3) {
+						currentSection = currentSection + 1;
+						alert('section'+currentSection);
+						$('#section').animate({
+							scrollLeft: $('section'+currentSection).offset().left
+						}, 1000);
+					}
+				});
+			});
+		</script>
+        <meta name="google-site-verification" content="4A3hvoLmfkL5tP9nDZje-57KYJkwlUT6XYmrNEYLd10" />
+    </head>
+
+    <body>
+		<div id="content">
+        	<!-- Logo -->
+        	<div id="logo"><img src="images/prorthymix.png" /></div>
+			<!-- Title -->
+            <div class="titles" title="Click me! You know you want to ;)">
+				<div class="pageTitle">Page under construction</div>
+    	        <div class="pageSubTitle">We'll be back soon!</div>
+            </div>
+            <!-- Countdown -->
+			<div id="counter">
+				<h3 title="Estimated Time to Launch T-">ETL <a href="http://en.wikipedia.org/wiki/T-Minus" class="countdownTitle" target="_blank">T-Minus</a></h3>
+				<div id="countdown"></div>
+                <div class="countdownDesc">
+                    <div id="days">Days</div>
+                    <div id="hours">Hours</div>
+                    <div id="minutes">Minutes</div>
+                    <div id="seconds">Seconds</div>
+				</div>
+			</div>
+            <!-- <br />
+            <div class="line"></div> -->
+            <!-- About us and contact info here -->
+            <!-- <div id="section">
+                <div class="section" id="section1">
+                    About Us<br />
+                    With all this technology today, life is getting complicated. We remember a day when technology was meant to make life easier. We're here to deliver that promise to the masses. Simplicity in design to provide the rythym your life needs.
+                </div>
+                <div class="section" id="section2">
+                    Contact us<br />
+                    You can obviously use Facebook, Twitter or just plain old e-mail
+                </div>
+                <div class="section" id="section3">
+                    Past releases<br />
+                    None :P
+                </div>
+            </div>
+            <div id="prevSection">prev</div>
+			<div id="nextSection">next</div> -->
+		</div>
+    </body>
+</html>
