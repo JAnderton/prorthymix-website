@@ -1,5 +1,5 @@
 # Prorthymix.com source
 
-[![Build Status](https://snap-ci.com/JAnderton/prorthymix-website/branch/master/build_image)](https://snap-ci.com/JAnderton/prorthymix-website/branch/master)
+[![Build Status](https://travis-ci.org/JAnderton/prorthymix-website.svg?branch=master)](https://travis-ci.org/JAnderton/prorthymix-website)
 
 Website source for [prorthymix.com](https://prorthymix.com)
