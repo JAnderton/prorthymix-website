@@ -1,6 +1,6 @@
 before_deploy: rm -rf .git .travis.yml LICENSE README.md
 
-script: echo "no-op. done"
+script: "echo 'no-op. done'"
 
 deploy:
   provider: s3
