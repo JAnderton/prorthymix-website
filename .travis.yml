@@ -1,0 +1,13 @@
+language: node_js
+
+before_deploy: rm -rf .git .gitignore .travis.yml LICENSE README.md
+
+deploy:
+  provider: s3
+  access_key_id: AKIAIQ4EWO3UZVAKZO6Q
+  secret_access_key:
+    secure: Z6kfKyGYCce+FUUC9tlhi33jkhDZCnLTXUtXuPKabU9YBpvm8Uqv0mqz9y8Wf9CpfZ+PgfasPheiQwDDdIxhVGYFpfvALOw3J4uDl3SRi0nbb8HgAJESjKyi6+cO3BYwXjjspC3RI8lIBJks6XSDYOrTnqmgRXCafED7RHBmbIA53vRsShp1JnHlNi95g5IadFgORm7eOV21edoIKZl5bcQG/v7ILnxqMD9G6AYJJ/5u/ikcKlNKSVFw9d97VB8qXWwtZ3xv4c5gkEgQPrweU2WLbKGzGBq1KPrQpFgHr/BVXEMRLqEoZTo7LzRZR2/4bosHkj/PQJo0PWvv7HH378PmPFyJ6mmoAc6lO1MSGhPYmEaYiQoRvF4TPaVmsmRH+E3kKUp2eyRPiqU2GXLgH2ww6uNk5H/wdfdJ58+hS8rPd+byUR2qU2YwtEmAEYu3qoI/WVL1ol9aqQD2InlciyTpAsSKYpjAyyFTBkV1Yp661fmhqXOEn8LLHvBahU1f2Bosd8S0pJNimR9fAXQIB4FMZNSjgQOswWEkYpQZOwyqHEgkU5ZBcdazxFWBkZZbp3gPPkSSzgd7zXtRbDAxGlJ9wjefnuqlh4wZtlMEgNScSm32iVZt15w8zpo+hqoqCW8BXrOFkDl3uQu32d+gifzqsSkum+LH417LOqYMpr0=
+  bucket: prorthymix.com
+  acl: public_read
+  on:
+    repo: JAnderton/prorthymix-website
